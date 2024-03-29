@@ -1,0 +1,371 @@
+body{
+    /* text-align: center; */
+    /* background-color: #d1b17d; */
+    background-color: rgb(59, 58, 58);
+    font-family: Roboto;
+    position: relative;
+    color: white;
+    height: 800px;
+}
+
+.header-div{
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.main-heading{
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.settings-icon{
+    font-size: 15px;
+    font-weight: 300;
+    color: black;
+    background-color: white;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.main-body{
+    display: grid;
+    color: black;
+    background-color: rgb(207, 174, 103);
+    /* flex: 1 2 1 ; */
+    /* flex-direction: row; */
+    grid-template-columns: 200px 2fr 200px ;
+    /* justify-content: center; */
+    align-items: center;
+    height: 100px;
+    margin-top: 50px;
+    position: relative;
+    margin-left: 100px;
+    margin-right: 100px;
+    border: 2px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 10px;
+    /* border-width: 2px; */
+    /* background-color: black; */
+}
+
+
+.pass-heading{
+    /* text-align: center; */
+    /* display: block; */
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    align-items: center;
+    text-align: center;
+    /* margin-top: 18px; */
+    font-weight: 500;
+}
+
+.pass-email{
+    font-size: 14px;
+    margin-top: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    /* text-align: center; */
+}
+
+.edit-pass{
+    text-align: center;
+    position: relative;
+    /* height: 100%; */
+    /* background-color: white; */
+    color: black;
+}
+
+.edit-icon{
+    /* background-color: white; */
+    padding: 4px;
+    /* border-radius: 5px; */
+    width: 40px;
+    /* border: 2px; */
+    /* border-style: solid; */
+    /* border-color: rgb(49, 41, 41); */
+    /* transition: background-color 0.2s; */
+    /* cursor: pointer; */
+}
+
+/* .edit-icon:hover{ */
+    /* background-color: lightblue; */
+/* } */
+
+.copy-button{
+    position: relative;
+    text-align: center;
+    /* top: 40px; */
+    font-size: 15px;
+    font-weight: 500;
+    /* right: 10px; */
+    /* background-color: white; */
+    color: black;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.delete-div{
+    position: absolute;
+    right: -75px;
+    top: 25px;
+}
+
+.delete-button{
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.delete-button:hover{
+    background-color: rgb(182, 70, 70);
+}
+
+.delete-button:active{
+    background-color: red;
+}
+
+.delete-button .tooltip{
+    position: absolute;
+    background-color: grey;
+    color: white;
+    bottom: -35px;
+    right: -5px;
+    font-size: 13px;
+    font-family: 'Courier New', Courier, monospace;
+    opacity: 0;
+    transition: opacity 0.15s;
+    pointer-events: none;
+    border-radius: 2px;
+    white-space: nowrap;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.delete-image{
+    width: 40px;
+    height: 50px;
+}
+
+.copy-button2{
+    background-color: white;
+    padding: 4px;
+    border-radius: 5px;
+    /* width: 40px; */
+    border: 2px;
+    border-style: solid;
+    border-color: rgb(49, 41, 41);
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.copy-button2:hover{
+    background-color: lightblue;
+}
+
+.copy-button2:active{
+    background-color: lightgreen;
+}
+
+.copy-icon{
+    width: 40px;
+    /* background-color: white; */
+    padding: 4px;
+    /* border-radius: 5px; */
+    /* border: 2px; */
+    /* border-style: solid; */
+    /* border-color: rgb(49, 41, 41); */
+    /* transition: background-color 0.2s; */
+    cursor: pointer;
+}
+
+
+.copy-button .tooltip,
+.edit-pass .tooltip{
+    position: absolute;
+    background-color: grey;
+    color: white;
+    bottom: -35px;
+    right: 75px;
+    font-size: 13px;
+    font-family: 'Courier New', Courier, monospace;
+    opacity: 0;
+    transition: opacity 0.15s;
+    pointer-events: none;
+    border-radius: 2px;
+    white-space: nowrap;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.copy-button:hover .tooltip,
+.edit-pass:hover .tooltip,
+.add-image:hover .tooltip,
+.delete-button:hover .tooltip{
+    opacity: 0.9;
+}
+
+
+.add-pass{
+    position: fixed;
+    z-index: 100;
+    right: 47%;
+    bottom: 50px;
+    /* background-color: white; */
+    border: 2px;
+    border-radius: 10px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.add-pass:hover{
+    opacity: 1;
+}
+
+.add-button{
+    background-color: none;
+    /* opacity: 0; */
+    border: 1;
+    border-radius: 13px;
+    border-color: grey ;
+    padding: 4px;
+    border-style: dashed;
+}
+
+.add-image .tooltip{
+    position: absolute;
+    background-color: grey;
+    color: white;
+    bottom: -35px;
+    right: -30px;
+    font-size: 13px;
+    font-family: 'Courier New', Courier, monospace;
+    opacity: 0;
+    transition: opacity 0.15s;
+    pointer-events: none;
+    border-radius: 2px;
+    white-space: nowrap;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.add-icon{
+    width: 50px;
+    opacity: 0.9;
+    background-color: white;
+    padding: 4px;
+    border-radius: 5px;
+    border: 2px;
+    border-style: solid;
+    border-color: rgb(49, 41, 41);
+    transition: background-color opacity 0.2s;
+    cursor: pointer;
+}
+
+.add-icon:hover{
+    /* background-color: lightblue; */
+    opacity: 1;
+}
+
+
+
+
+.overlay-container {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items:center;
+  opacity: 0.97;
+  top: 6%;
+  right: 25%;
+  /* flex: 2; */
+  height: 70%;
+  width: 50%;
+  /* background-color: rgba(0,0,0,0.5); */
+  background-color: rgb(29, 25, 25);
+  border: 2px;
+  border-style: solid;
+  border-color: white;
+  border-radius: 10px;
+}
+
+.overlay-content{
+  position: relative;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 30px;
+  color: white;
+  /* background-color: rgb(232, 130, 130); */
+  /* padding:20px; */
+}
+
+.input-field{
+    width: 350px;
+    margin: 15px;
+    text-align: center;
+    height: 25px;
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    border: 2px;
+    border-radius: 3px;
+    border-color: rgb(207, 174, 103);
+    border-style: solid;
+}
+
+
+.generate-pass{
+    width: 280px;
+    margin-top: 10px;
+    height: 37px;
+    border: 2px;
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    border-style: solid;
+    border-radius: 4px;
+    border-color: lightgreen;
+    transition: background-color color 0.2s;
+}
+
+.generate-pass:hover{
+    background-color: lightgreen;
+}
+
+.generate-pass:active{
+    color: white;
+}
+
+
+.close-overlay{
+    position: absolute;
+    top: -30px;
+    right: 20px;
+    font-size: 20px;
+    font-weight: 800;
+    color: black;
+    background-color: rgb(207, 174, 103);
+    /* padding: 4px; */
+    border-radius: 4px;
+}
+
+.close-button{
+    background-color: rgb(207, 174, 103);
+    border: none;
+    font-size: 18px;
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+}

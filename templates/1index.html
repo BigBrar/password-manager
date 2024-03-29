@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+
+<body>
+    <h1 class="heading">Generate and manage <br> passwords....</h1>
+    <form action="/create_pass">
+        <div class="username_field">
+            <label class="input_username">Username</label><br>
+            <input class="input_field" type="text">
+        </div><br><br><br><br>
+        <div class="username_field">
+            <label class="input_username">Email</label><br>
+            <input class="input_field" type="text">
+        </div><br><br><br><br>
+        <div class="username_field">
+            <label class="input_username">Password</label><br>
+            <input class="input_field" type="text">
+        </div>
+        <input type="submit">
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <title>DeePass</title>
+</head>
+
+<body>
+    <div class="header-div">
+        <div class="settings-icon">Logout</div>
+        <div class="main-heading">DeePass</div>
+        <div class="settings-icon">About</div>
+    </div>
+
+    <div class="add-pass">
+        <button class="add-button" onclick="toggleOverlay()">
+            <div class="add-image">
+                <img class="add-icon" src="{{ url_for('static', filename='images/add-pass.png') }}" class="image" />
+                <div class="tooltip">Create Password</div>
+            </div>
+        </button>
+    </div>
+
+    {% for things in list %}
+    <div class="main-body">
+
+        <div class="delete-div">
+            <button onclick="deleteData('{{loop.index}}')" class="delete-button">
+                <img class="delete-image" src="{{ url_for('static', filename='images/delete.svg') }}" alt="delete">
+                <div class="tooltip">
+                    Delete
+                </div>
+            </button>
+        </div>
+
+        <div class="edit-pass">
+            <button class="copy-button2"
+                onclick="editPass('{{things.account}}','{{things.username}}','{{things.email}}','{{things.note}}','{{ things.password }}','{{ loop.index }}')">
+                <img class="edit-icon" src="{{ url_for('static', filename='images/edit.png') }}" class="image" />
+            </button>
+            <div class="tooltip">Edit</div>
+        </div>
+
+        <div class="details">
+            <div class="pass-heading">
+                {{ things.account }}
+            </div>
+
+            <div class="pass-email">
+                Username - {{ things.username }} <br>
+                {{ things.email }} <br>
+                {{ things.note }} <br>
+            </div>
+        </div>
+
+        <div class="copy-button">
+            <button class="copy-button2" onclick="copyPass('{{ things.password }}')">
+                <img class="copy-icon" src="{{ url_for('static', filename='images/copy-icon.webp') }}" class="image" />
+            </button>
+            <div class="tooltip">Copy</div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="overlay-container" id="overlayContainer">
+        <div class="overlay-content" id="overlayContainer">
+            <div class="close-overlay">
+                <button class="close-button" id="close-button-overlay" onclick="toggleOverlay()">Close</button>
+            </div>
+            <span id="heading-overlay">Create New Password</span>
+            <form id="input-form" action="/create_pass" method="post">
+                <input class="input-field" id="account-field" name="account" placeholder="Account name (eg. Google) "
+                    type="text">
+                <input class="input-field" id="username-field" name="username" placeholder="Username (eg. Jack) "
+                    type="text">
+                <input class="input-field" id="email-field" name="email"
+                    placeholder="Email (connected to account/user) " type="text">
+                <input type="hidden" id="loopIndex" name="loopIndex" type="text" value="">
+                <input class="input-field" id="note-field" name="note"
+                    placeholder="Note (This is something to remember....) " type="text">
+                <input class="input-field" style="display: none;" id="password-field" name="password-field"
+                    placeholder="Password " type="text">
+                <input class="generate-pass" type="submit">
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script>
+        function toggleOverlay() {
+            var overlay = document.getElementsByClassName("overlay-container")[0];
+            overlay.style.display = (overlay.style.display === "flex") ? "none" : "flex";
+
+            var account_field = document.getElementById('account-field');
+            var username_field = document.getElementById('username-field');
+            var email_field = document.getElementById('email-field');
+            var note_field = document.getElementById('note-field');
+            var password_field = document.getElementById('password-field');
+
+            document.getElementById('heading-overlay').textContent = 'Create Password';
+
+
+            password_field.style.display = 'none'
+            account_field.value = '';
+            username_field.value = '';
+            email_field.value = '';
+            note_field.value = '';
+        }
+
+        function copyPass(password) {
+            navigator.clipboard.writeText(password)
+                .then(() => {
+                    console.log('Password copied to clipboard:', password);
+                    alert('Password copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Failed to copy password:', err);
+                    alert('Failed to copy password!');
+                });
+        }
+
+        function editPass(account, username, email, note, password, loopindex) {
+            console.log("Edit button initiated ....")
+            // console.log("Account - ", account)
+            // console.log("Email - ", email)
+            // console.log("Note - ", note)
+            // console.log("Password - ", password)
+            var account_field = document.getElementById('account-field');
+            var username_field = document.getElementById('username-field');
+            var email_field = document.getElementById('email-field');
+            var note_field = document.getElementById('note-field');
+            var password_field = document.getElementById('password-field');
+            var close_button = document.getElementById('close-button-overlay');
+
+
+            document.getElementById("input-form").action = '/edit_pass';
+            document.getElementById('heading-overlay').textContent = 'Edit Password';
+            document.getElementById('loopIndex').value = loopindex;
+
+            account_field.value = account;
+            username_field.value = username;
+            email_field.value = email;
+            note_field.value = note;
+            password_field.value = password;
+            password_field.style.display = "inline-block";
+            close_button.style.top = '10px';
+            toggleEditOverlay();
+        }
+
+
+        function toggleEditOverlay() {
+            var overlay = document.getElementsByClassName("overlay-container")[0];
+            overlay.style.display = (overlay.style.display === "flex") ? "none" : "flex";
+
+        }
+
+
+
+        //function to delete data 
+
+        function deleteData(index) {
+            fetch('/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ index: index }) // Send index as JSON data
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Redirect to the root URL after successful deletion
+                        window.location.href = '/';
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+
+
+        //overlay settings...
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     var overlayContainer = document.getElementById("overlayContainer");
+        //     var overlayContent = document.getElementById("overlayContent");
+        //     var inputFields = overlayContent.querySelectorAll('.input-field');
+
+        //     // Prevent the overlay from showing when the page loads
+        //     overlayContainer.style.display = "none";
+
+        //     // Add event listeners to input fields to prevent overlay from closing when interacting with them
+        //     inputFields.forEach(function (inputField) {
+        //         inputField.addEventListener('click', function (event) {
+        //             event.stopPropagation();
+        //         });
+        //     });
+
+        //     // Add event listener to document to close overlay when clicking outside of it
+        //     document.addEventListener('click', function (event) {
+        //         if (event.target === overlayContainer) {
+        //             toggleOverlay();
+        //         }
+        //     });
+        // });
+
+        // function toggleOverlay() {
+        //     var overlayContainer = document.getElementById("overlayContainer");
+        //     overlayContainer.style.display = (overlayContainer.style.display === "flex") ? "none" : "flex";
+        // }
+
+    </script>
+</body>
+
+</html>
